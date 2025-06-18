@@ -17,6 +17,8 @@ return new class extends Migration
             $table->UnsignedBigInteger('nisn')->unique();
             $table->string('nama');
             $table->string('jns_kelamin');
+            $table->string('kelas')->nullable();
+            $table->enum('jurusan', ['Teknik Kendaraan Ringan', 'Teknik Mesin Industri', 'Manajemen Perkantoran']);
             $table->UnsignedBigInteger('id_wali')->nullable();
             $table->timestamps();
 

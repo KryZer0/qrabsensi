@@ -20,6 +20,8 @@ class siswaFactory extends Factory
             'nisn' => fake()->unique()->randomNumber(9),
             'nama' => fake()->name(),
             'jns_kelamin' => fake()->randomElement(['L', 'P']),
+            'kelas' => fake()->randomElement(['X', 'XI', 'XII']),
+            'jurusan' => fake()->randomElement(['Teknik Kendaraan Ringan', 'Teknik Mesin Industri', 'Manajemen Perkantoran']),
         ];
     }
 }

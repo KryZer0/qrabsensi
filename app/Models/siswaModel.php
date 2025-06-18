@@ -10,6 +10,8 @@ class siswaModel extends Model
         'nisn',
         'nama',
         'jns_kelamin',
+        'kelas',
+        'jurusan',
         'id_wali',
     ];
 

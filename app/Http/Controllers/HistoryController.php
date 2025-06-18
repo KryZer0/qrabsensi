@@ -11,7 +11,8 @@ class HistoryController extends Controller
     public function fetchHistory(Request $request) {
         $history = AbsenModel::join('siswa', 'absensi.nisn', '=', 'siswa.nisn')
             ->select('siswa.nama', 'absensi.*')
-            ->paginate($request->input('per_page', 10)); // Default 10 items per page
+            ->orderBy('tanggal', 'desc')
+            ->paginate($request->input('per_page', 10));
     
         return response()->json($history);
     }

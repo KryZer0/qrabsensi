@@ -28,6 +28,8 @@ class SiswaController extends Controller
             'nisn' => 'required|unique:siswa,nisn',
             'nama' => 'required',
             'jns_kelamin' => 'required',
+            'kelas' => 'nullable',
+            'jurusan' => 'required|in:Teknik Kendaraan Ringan,Teknik Mesin Industri,Manajemen Perkantoran',
             'id_wali' => 'nullable|exists:wali,id',
         ]);
 
@@ -62,7 +64,7 @@ class SiswaController extends Controller
         $rows = array_slice($csvData, 1); // Ambil data tanpa header
 
         // Pastikan semua header sesuai dengan kolom di database
-        $expectedColumns = ['nisn', 'nama', 'jns_kelamin']; // Sesuaikan dengan database
+        $expectedColumns = ['nisn', 'nama', 'jns_kelamin', 'kelas', 'jurusan']; // Sesuaikan dengan database
         if (array_diff($expectedColumns, $header)) {
             return response()->json([
                 'success' => false,
@@ -88,6 +90,8 @@ class SiswaController extends Controller
                     'nisn'  => $data['nisn'],
                     'nama'  => $data['nama'],
                     'jns_kelamin' => $data['jns_kelamin'],
+                    'kelas' => $data['kelas'] ?? null,
+                    'jurusan' => $data['jurusan'],
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
@@ -103,7 +107,7 @@ class SiswaController extends Controller
         }
 
         // Cek apakah ada data yang sudah ada di database berdasarkan nisn
-        $existingNisn = \App\Models\siswaModel::whereIn('nisn', $nisnList)->pluck('nisn')->toArray();
+        $existingNisn = siswaModel::whereIn('nisn', $nisnList)->pluck('nisn')->toArray();
 
         if (!empty($existingNisn)) {
             return response()->json([
@@ -113,7 +117,7 @@ class SiswaController extends Controller
         }
 
         // Simpan data dalam batch untuk efisiensi
-        \App\Models\siswaModel::insert($dataToInsert);
+        siswaModel::insert($dataToInsert);
 
         return response()->json([
             'success' => true,
@@ -144,6 +148,8 @@ class SiswaController extends Controller
             'nisn' => 'required|unique:siswa,nisn,' . $nisn . ',nisn',
             'nama' => 'required',
             'jns_kelamin' => 'required',
+            'kelas' => 'nullable',
+            'jurusan' => 'required|in:Teknik Kendaraan Ringan,Teknik Mesin Industri,Manajemen Perkantoran',
             'id_wali' => 'nullable|exists:wali,id',
         ]);
 
