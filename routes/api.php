@@ -21,6 +21,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/history', [HistoryController::class, 'fetchHistory']);
     Route::get('/generate-qr/{nisn}', [QrCodeController::class, 'generateQrCode']);
     Route::get('/generate-qr-batch', [QrCodeController::class, 'generateQrBatch']);
+    Route::get('/export-absensi', [HistoryController::class, 'exportAbsensiExcel']);
 
     Route::prefix('/siswa')->group(function() {
         Route::get('/fetch', [SiswaController::class, 'fetchSiswa']);
@@ -31,6 +32,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/qrcodesbatch', [SiswaController::class, 'generateAbsensiQrBatch']);
         Route::get('/generatecard/{nisn}', [QrCodeController::class, 'fetchQrCode']);
         Route::get('/generatecardbatch', [QrCodeController::class, 'fetchAllQrCodes']);
+
+        Route::get('/fetch-kelas-jurusan', [PresentController::class, 'getSiswaByKelasJurusan']);
+        Route::post('/save-izin', [PresentController::class, 'saveIzinSiswa']);
     });
     
 });

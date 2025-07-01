@@ -134,6 +134,8 @@ class QrCodeController extends Controller
             return [
                 'nisn' => $s->nisn,
                 'nama' => $s->nama,
+                'kelas' => $s->kelas,
+                'jurusan' => $s->jurusan,
                 'qr_code' => url('qr-codes/' . $s->nisn . '.png') // Path QR Code
             ];
         }));

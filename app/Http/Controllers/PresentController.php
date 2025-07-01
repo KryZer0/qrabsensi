@@ -6,6 +6,7 @@ use App\Events\SiswaAbsenEvent;
 use App\Models\absenModel;
 use App\Models\siswaModel;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PresentController extends Controller
 {
@@ -112,6 +113,68 @@ class PresentController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Check-out berhasil'
+        ], 200);
+    }
+
+    public function getSiswaByKelasJurusan(Request $request)
+    {
+        $kelas = $request->query('kelas');
+        $jurusan = $request->query('jurusan');
+
+        if (!$kelas || !$jurusan) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Kelas dan Jurusan harus diisi'
+            ], 400);
+        }
+        
+        $siswa = siswaModel::where('kelas', $kelas)
+            ->where('jurusan', $jurusan)
+            ->get(['nama', 'nisn']);
+
+        return response()->json($siswa);
+    }
+
+    public function saveIzinSiswa(Request $request)
+    {
+        $nisn = $request->input('nisn');
+        $keterangan = $request->input('keterangan');
+
+        $siswa = siswaModel::where('nisn', $nisn)->first();
+        if (!$siswa) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Siswa tidak ditemukan'
+            ], 404);
+        }
+
+        $data['tanggal'] = Carbon::now()->toDateString();
+        $data['nisn'] = $nisn;
+        $data['keterangan'] = $keterangan;
+
+        if (date('l') == 'Saturday' || date('l') == 'Sunday') {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Hari Libur Tidak bisa Absen'
+            ], 403);
+        }
+        
+        $present = absenModel::where('nisn', $nisn)
+                            ->where('tanggal', $data['tanggal'])
+                            ->first();
+
+        if ($present) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Siswa sudah Absen hari ini'
+            ], 403);
+        }
+
+        absenModel::create($data);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Izin berhasil disimpan'
         ], 200);
     }
 }

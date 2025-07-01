@@ -29,5 +29,29 @@ class DatabaseSeeder extends Seeder
             'jns_kelamin'  => 'L',
             'created_at' => now(),
         ]);
+
+        DB::table('siswa')->insert([
+            // 'nisn'      => '109210940086',
+            'nisn'      => '940086',
+            'nama'       => 'Dewi Safitri',
+            'jns_kelamin'  => 'P',
+            'kelas' => 'X',
+            'jurusan' => 'Manajemen Perkantoran',
+            'created_at' => now(),
+        ]);
+        DB::table('siswa')->insert([
+            // 'nisn'      => '103829373828',
+            'nisn'      => '373828',
+            'nama'       => 'Yoga Chandra',
+            'jns_kelamin'  => 'L',
+            'kelas' => 'X',
+            'jurusan' => 'Teknik Kendaraan Ringan',
+            'created_at' => now(),
+        ]);
+
+        $this->call([
+            SiswaSeeder::class,
+            AbsensiSeeder::class,
+        ]);
     }
 }

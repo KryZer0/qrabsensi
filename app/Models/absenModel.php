@@ -23,8 +23,9 @@ class absenModel extends Model
      */
     public $timestamps = false;
 
-    public function absen()
+    public function siswa()
     {
-        return $this->belongsTo('App\Models\absenModel');
+        return $this->belongsTo(siswaModel::class, 'nisn', 'nisn');
     }
+
 }
