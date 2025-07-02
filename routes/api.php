@@ -6,6 +6,7 @@ use App\Http\Controllers\PresentController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -22,6 +23,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/generate-qr/{nisn}', [QrCodeController::class, 'generateQrCode']);
     Route::get('/generate-qr-batch', [QrCodeController::class, 'generateQrBatch']);
     Route::get('/export-absensi', [HistoryController::class, 'exportAbsensiExcel']);
+    Route::post('/login', [AuthController::class, 'login']);
 
     Route::prefix('/siswa')->group(function() {
         Route::get('/fetch', [SiswaController::class, 'fetchSiswa']);

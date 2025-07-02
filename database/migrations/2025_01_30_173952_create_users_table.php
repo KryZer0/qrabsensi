@@ -18,10 +18,12 @@ return new class extends Migration
             $table->string('password');
             $table->string('fcm_token')->nullable();
             $table->unsignedBigInteger('id_wali')->nullable();
+            $table->unsignedBigInteger('id_role');
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('id_wali')->references('id')->on('wali_siswa')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_role')->references('id_role')->on('tb_role')->onDelete('cascade')->onUpdate('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

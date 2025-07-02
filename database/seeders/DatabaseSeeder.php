@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\siswaModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -47,6 +48,39 @@ class DatabaseSeeder extends Seeder
             'kelas' => 'X',
             'jurusan' => 'Teknik Kendaraan Ringan',
             'created_at' => now(),
+        ]);
+
+
+
+        DB::table('tb_role')->insert([
+            'nama_role' => 'admin',
+        ]);
+        DB::table('tb_role')->insert([
+            'nama_role' => 'guru',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Admin',
+            'email' => 'admin@mail.com',
+            'password' => Hash::make('admin'),
+            'id_wali' => null,
+            'id_role' => 1,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Yoga Chandra',
+            'email' => 'Yoga Chandra@gmail.com',
+            'password' => Hash::make('guru'),
+            'id_wali' => null,
+            'id_role' => 2,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Dewi Safitri',
+            'email' => 'DewiSafitri@gmail.com',
+            'password' => Hash::make('guru'),
+            'id_wali' => null,
+            'id_role' => 2,
         ]);
 
         $this->call([
