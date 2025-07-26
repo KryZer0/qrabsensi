@@ -23,6 +23,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/generate-qr/{nisn}', [QrCodeController::class, 'generateQrCode']);
     Route::get('/generate-qr-batch', [QrCodeController::class, 'generateQrBatch']);
     Route::get('/export-absensi', [HistoryController::class, 'exportAbsensiExcel']);
+    Route::get('/export-absensi/{kelas}', [HistoryController::class, 'exportAbsensiExcelByKelas']);
     Route::post('/login', [AuthController::class, 'login']);
 
     Route::prefix('/siswa')->group(function() {
@@ -37,6 +38,13 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/fetch-kelas-jurusan', [PresentController::class, 'getSiswaByKelasJurusan']);
         Route::post('/save-izin', [PresentController::class, 'saveIzinSiswa']);
+    });
+
+    Route::prefix('/guru')->group(function() {
+        Route::post('/tambah', [AuthController::class, 'tambahGuru']);
+        Route::get('/fetch', [AuthController::class, 'fetchGuru']);
+        Route::put('/{id}', [AuthController::class, 'updateGuru']);
+        Route::delete('/{id}', [AuthController::class, 'deleteGuru']);
     });
     
 });
