@@ -20,6 +20,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/check/{nisn}', [PresentController::class, 'checkIn']);
     Route::patch('/checkout/{nisn}', [PresentController::class, 'checkOut']);
     Route::get('/history', [HistoryController::class, 'fetchHistory']);
+    Route::get('/history/kelas', [HistoryController::class, 'fetchHistoryByKelas']);
     Route::get('/generate-qr/{nisn}', [QrCodeController::class, 'generateQrCode']);
     Route::get('/generate-qr-batch', [QrCodeController::class, 'generateQrBatch']);
     Route::get('/export-absensi', [HistoryController::class, 'exportAbsensiExcel']);

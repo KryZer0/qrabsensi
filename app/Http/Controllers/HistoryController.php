@@ -21,6 +21,25 @@ class HistoryController extends Controller
         return response()->json($history);
     }
 
+    public function fetchHistoryByKelas(Request $request) {
+        $request->validate([
+            'kelas' => 'required|string',
+        ]);
+        $kelas = $request->input('kelas');
+        
+        if (!in_array($kelas, ['X', 'XI', 'XII'])) {
+            return response()->json(['error' => 'Kelas tidak valid.'], 400);
+        }
+
+        $history = AbsenModel::join('siswa', 'absensi.nisn', '=', 'siswa.nisn')
+            ->select('siswa.nama', 'absensi.*')
+            ->where('siswa.kelas', $request->input('kelas'))
+            ->orderBy('tanggal', 'desc')
+            ->paginate($request->input('per_page', 10));
+    
+        return response()->json($history);
+    }
+
     public function exportAbsensiExcel(Request $request)
     {
         $monthParam = $request->query('month');
