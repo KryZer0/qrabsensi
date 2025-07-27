@@ -29,9 +29,11 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('/siswa')->group(function() {
         Route::get('/fetch', [SiswaController::class, 'fetchSiswa']);
+        Route::get('/fetch/kelas', [SiswaController::class, 'fetchSiswaByKelas']);
         Route::post('/store', [SiswaController::class, 'store']);
         Route::post('/store-batch', [SiswaController::class, 'storeBatch']);
         Route::put('/update/{nisn}', [SiswaController::class, 'update']);
+        Route::delete('/{nisn}', [SiswaController::class, 'destroy']);
         Route::get('/qrcodes/{nisn}', [SiswaController::class, 'generateAbsensiQr']);
         Route::get('/qrcodesbatch', [SiswaController::class, 'generateAbsensiQrBatch']);
         Route::get('/generatecard/{nisn}', [QrCodeController::class, 'fetchQrCode']);

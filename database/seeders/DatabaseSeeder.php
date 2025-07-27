@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Yoga Chandra',
-            'email' => 'Yoga Chandra@gmail.com',
+            'email' => 'YogaChandra@gmail.com',
             'password' => Hash::make('guru'),
             'id_wali' => null,
             'id_role' => 2,

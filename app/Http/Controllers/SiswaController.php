@@ -21,6 +21,20 @@ class SiswaController extends Controller
         return response()->json($siswa);
     }
 
+    public function fetchSiswaByKelas(Request $request)
+    {
+        $request->validate([
+            'kelas' => 'required|string|in:X,XI,XII',
+        ]);
+
+        $kelas = $request->query('kelas');
+
+        $siswa = siswaModel::where('kelas', $kelas)
+            ->paginate($request->query('per_page', 10));
+
+        return response()->json($siswa);
+    }
+
     // Menyimpan data siswa baru
     public function store(Request $request)
     {
@@ -161,14 +175,14 @@ class SiswaController extends Controller
     }
 
     // Menghapus data siswa
-    public function destroy($id)
+    public function destroy($nisn)
     {
-        $siswa = siswaModel::find($id);
-        if (!$siswa) {
+        $deleted = siswaModel::where('nisn', $nisn)->delete();
+
+        if ($deleted === 0) {
             return response()->json(['message' => 'Siswa tidak ditemukan'], 404);
         }
 
-        $siswa->delete();
         return response()->json(['message' => 'Siswa berhasil dihapus']);
     }
 
