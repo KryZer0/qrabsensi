@@ -43,7 +43,7 @@ class SiswaController extends Controller
             'nama' => 'required',
             'jns_kelamin' => 'required',
             'kelas' => 'nullable',
-            'jurusan' => 'required|in:Teknik Kendaraan Ringan,Teknik Mesin Industri,Manajemen Perkantoran',
+            'jurusan' => 'required|in:Teknik Kendaraan Ringan,Teknik Mesin Industri,Administrasi Perkantoran',
             'id_wali' => 'nullable|exists:wali,id',
         ]);
 
