@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             'nama'       => 'Dewi Safitri',
             'jns_kelamin'  => 'P',
             'kelas' => 'X',
-            'jurusan' => 'Manajemen Perkantoran',
+            'jurusan' => 'Administrasi Perkantoran',
             'created_at' => now(),
         ]);
         DB::table('siswa')->insert([
