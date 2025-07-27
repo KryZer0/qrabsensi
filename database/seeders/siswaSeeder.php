@@ -45,7 +45,7 @@ class SiswaSeeder extends Seeder
                 'jurusan' => fake()->randomElement([
                     'Teknik Kendaraan Ringan',
                     'Teknik Mesin Industri',
-                    'Manajemen Perkantoran'
+                    'Administrasi Perkantoran'
                 ]),
             ]);
         }
