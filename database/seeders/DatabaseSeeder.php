@@ -83,6 +83,14 @@ class DatabaseSeeder extends Seeder
             'id_role' => 2,
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'Ahmad',
+            'email' => 'sirahmad158@gmail.com',
+            'password' => Hash::make('ahmad'),
+            'id_wali' => null,
+            'id_role' => 2,
+        ]);
+
         $this->call([
             SiswaSeeder::class,
             AbsensiSeeder::class,
