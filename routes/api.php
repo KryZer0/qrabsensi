@@ -48,6 +48,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/fetch', [AuthController::class, 'fetchGuru']);
         Route::put('/{id}', [AuthController::class, 'updateGuru']);
         Route::delete('/{id}', [AuthController::class, 'deleteGuru']);
+        Route::post('/reset/{id}', [AuthController::class, 'resetPassword']);
     });
     
 });

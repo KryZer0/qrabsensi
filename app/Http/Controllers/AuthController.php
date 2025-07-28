@@ -100,4 +100,17 @@ class AuthController extends Controller
         $guru->delete();
         return response()->json(['message' => 'Data guru berhasil dihapus']);
     }
+
+    public function resetPassword(Request $request, $id)
+    {
+        $guru = User::find($id);
+        if (!$guru) {
+            return response()->json(['message' => 'Guru tidak ditemukan'], 404);
+        }
+
+        $guru->password = Hash::make('password');
+        $guru->save();
+
+        return response()->json(['message' => 'Password berhasil direset']);
+    }
 }
