@@ -26,6 +26,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/export-absensi', [HistoryController::class, 'exportAbsensiExcel']);
     Route::get('/export-absensi/{kelas}', [HistoryController::class, 'exportAbsensiExcelByKelas']);
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('change-password', [AuthController::class, 'changePassword']);
 
     Route::prefix('/siswa')->group(function() {
         Route::get('/fetch', [SiswaController::class, 'fetchSiswa']);

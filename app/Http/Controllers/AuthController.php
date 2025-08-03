@@ -25,11 +25,13 @@ class AuthController extends Controller
         }
         $nama = $user->name;
         $id_role = $user->id_role;
+        $idUser = $user->id;
     
         return response()->json([
             'message' => 'Login berhasil',
             'nama' => $nama,
             'id_role' => $id_role,
+            'id_user' => $idUser
         ]);
     }
 
@@ -112,5 +114,23 @@ class AuthController extends Controller
         $guru->save();
 
         return response()->json(['message' => 'Password berhasil direset']);
+    }
+
+    public function changePassword(Request $request) {
+        $request->validate([
+            'id' => 'required|exists:users,id',
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+        $userId = $request->input('id');
+        $user = User::where('id', $userId)->first();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'Password saat ini salah'], 401);
+        }
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        
+        return response()->json(['message' => 'Password berhasil diubah']);
     }
 }
