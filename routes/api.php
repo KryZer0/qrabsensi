@@ -28,6 +28,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('change-password', [AuthController::class, 'changePassword']);
 
+    Route::get('/rekap-absensi/{kelas}', [HistoryController::class, 'exportRekapAbsensiExcel']);
+
     Route::prefix('/siswa')->group(function() {
         Route::get('/fetch', [SiswaController::class, 'fetchSiswa']);
         Route::get('/fetch/kelas', [SiswaController::class, 'fetchSiswaByKelas']);
