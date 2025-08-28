@@ -38,6 +38,7 @@ class AuthController extends Controller
     public function tambahGuru(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|unique:users,id',
             'nama'  => ['required', 'regex:/^[^\d]+$/'],
             'email' => 'required|email|unique:users,email'
         ]);
@@ -50,6 +51,7 @@ class AuthController extends Controller
         }
 
         $guru = User::create([
+            'id' => $request->id,
             'name' => $request->nama,
             'email' => $request->email,
             'password' => Hash::make('password'),
@@ -71,23 +73,28 @@ class AuthController extends Controller
         return response()->json($gurus);
     }
 
-    public function updateGuru(Request $request, $id)
+    public function updateGuru(Request $request, $old_id)
     {
-        $guru = User::find($id);
+        $guru = User::find($old_id);
+
         if (!$guru) {
             return response()->json(['message' => 'Guru tidak ditemukan'], 404);
         }
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'id'    => 'required|integer|unique:users,id,' . $old_id,
+            'name'  => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $old_id,
         ]);
 
-        $guru->update($validated);
+        $guru->id    = $validated['id'];
+        $guru->name  = $validated['name'];
+        $guru->email = $validated['email'];
+        $guru->save();
 
         return response()->json([
             'message' => 'Data guru berhasil diperbarui',
-            'data' => $guru
+            'data'    => $guru
         ]);
     }
 

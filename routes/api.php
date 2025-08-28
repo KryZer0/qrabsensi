@@ -49,7 +49,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('/guru')->group(function() {
         Route::post('/tambah', [AuthController::class, 'tambahGuru']);
         Route::get('/fetch', [AuthController::class, 'fetchGuru']);
-        Route::put('/{id}', [AuthController::class, 'updateGuru']);
+        Route::put('/{old_id}', [AuthController::class, 'updateGuru']);
         Route::delete('/{id}', [AuthController::class, 'deleteGuru']);
         Route::post('/reset/{id}', [AuthController::class, 'resetPassword']);
     });
