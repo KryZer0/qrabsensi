@@ -258,18 +258,20 @@ class HistoryController extends Controller
             $row++;
         }
 
-        // Nama file
         $periode = $monthParam ?: "semester-{$semester}";
         $filename = "rekap-presensi-{$periode}-{$kelas}.xlsx";
-        $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $filename;
 
-        if (file_exists($tempPath)) {
-            unlink($tempPath);
+        // Bersihkan output buffer agar tidak ada gangguan
+        if (ob_get_length()) {
+            ob_end_clean();
         }
 
-        (new Xlsx($spreadsheet))->save($tempPath);
+        $writer = new Xlsx($spreadsheet);
 
-        return response()->download($tempPath, $filename)->deleteFileAfterSend(true);
+        // Gunakan stream langsung ke browser
+        return response()->streamDownload(function () use ($writer) {
+            $writer->save('php://output');
+        }, $filename);
     }
 
 }
