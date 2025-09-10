@@ -43,8 +43,7 @@ class PresentController extends Controller
         }
 
         // Tentukan status kehadiran berdasarkan jam masuk
-        if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -1 hours')
-        && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
+        if (strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
             $data['keterangan'] = 'Masuk';
         } else if (strtotime($data['jam_masuk']) > strtotime(config('absensi.jam_masuk')) && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_pulang'))) {
             $data['keterangan'] = 'Telat';
