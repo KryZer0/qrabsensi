@@ -26,6 +26,9 @@ Route::prefix('v1')->group(function () {
     Route::get('/export-absensi', [HistoryController::class, 'exportAbsensiExcel']);
     Route::get('/export-absensi/{kelas}', [HistoryController::class, 'exportAbsensiExcelByKelas']);
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('change-password', [AuthController::class, 'changePassword']);
+
+    Route::get('/rekap-absensi/{kelas}', [HistoryController::class, 'exportRekapAbsensiExcel']);
 
     Route::prefix('/siswa')->group(function() {
         Route::get('/fetch', [SiswaController::class, 'fetchSiswa']);
@@ -46,8 +49,9 @@ Route::prefix('v1')->group(function () {
     Route::prefix('/guru')->group(function() {
         Route::post('/tambah', [AuthController::class, 'tambahGuru']);
         Route::get('/fetch', [AuthController::class, 'fetchGuru']);
-        Route::put('/{id}', [AuthController::class, 'updateGuru']);
+        Route::put('/{old_id}', [AuthController::class, 'updateGuru']);
         Route::delete('/{id}', [AuthController::class, 'deleteGuru']);
+        Route::post('/reset/{id}', [AuthController::class, 'resetPassword']);
     });
     
 });

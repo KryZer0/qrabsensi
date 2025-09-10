@@ -59,6 +59,10 @@ class DatabaseSeeder extends Seeder
             'nama_role' => 'guru',
         ]);
 
+        DB::table('tb_role')->insert([
+            'nama_role' => 'wali kelas',
+        ]);
+
         DB::table('users')->insert([
             'name' => 'Admin',
             'email' => 'admin@mail.com',

@@ -25,17 +25,20 @@ class AuthController extends Controller
         }
         $nama = $user->name;
         $id_role = $user->id_role;
+        $idUser = $user->id;
     
         return response()->json([
             'message' => 'Login berhasil',
             'nama' => $nama,
             'id_role' => $id_role,
+            'id_user' => $idUser
         ]);
     }
 
     public function tambahGuru(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|unique:users,id',
             'nama'  => ['required', 'regex:/^[^\d]+$/'],
             'email' => 'required|email|unique:users,email'
         ]);
@@ -48,6 +51,7 @@ class AuthController extends Controller
         }
 
         $guru = User::create([
+            'id' => $request->id,
             'name' => $request->nama,
             'email' => $request->email,
             'password' => Hash::make('password'),
@@ -69,23 +73,28 @@ class AuthController extends Controller
         return response()->json($gurus);
     }
 
-    public function updateGuru(Request $request, $id)
+    public function updateGuru(Request $request, $old_id)
     {
-        $guru = User::find($id);
+        $guru = User::find($old_id);
+
         if (!$guru) {
             return response()->json(['message' => 'Guru tidak ditemukan'], 404);
         }
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'id'    => 'required|integer|unique:users,id,' . $old_id,
+            'name'  => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $old_id,
         ]);
 
-        $guru->update($validated);
+        $guru->id    = $validated['id'];
+        $guru->name  = $validated['name'];
+        $guru->email = $validated['email'];
+        $guru->save();
 
         return response()->json([
             'message' => 'Data guru berhasil diperbarui',
-            'data' => $guru
+            'data'    => $guru
         ]);
     }
 
@@ -99,5 +108,36 @@ class AuthController extends Controller
 
         $guru->delete();
         return response()->json(['message' => 'Data guru berhasil dihapus']);
+    }
+
+    public function resetPassword(Request $request, $id)
+    {
+        $guru = User::find($id);
+        if (!$guru) {
+            return response()->json(['message' => 'Guru tidak ditemukan'], 404);
+        }
+
+        $guru->password = Hash::make('password');
+        $guru->save();
+
+        return response()->json(['message' => 'Password berhasil direset']);
+    }
+
+    public function changePassword(Request $request) {
+        $request->validate([
+            'id' => 'required|exists:users,id',
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+        $userId = $request->input('id');
+        $user = User::where('id', $userId)->first();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'Password saat ini salah'], 401);
+        }
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        
+        return response()->json(['message' => 'Password berhasil diubah']);
     }
 }
