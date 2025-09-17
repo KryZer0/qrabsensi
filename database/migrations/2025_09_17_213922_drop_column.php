@@ -11,12 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['id_wali']); // hapus foreign key kalau ada
-            $table->dropColumn('id_wali');    // hapus kolom
-            
-        });
-
+        //
         Schema::table('siswa', function (Blueprint $table) {
             $table->dropForeign(['id_wali']); // hapus foreign key kalau ada
             $table->dropColumn('id_wali');    // hapus kolom
@@ -29,14 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_wali')->nullable();
-
-            // kalau sebelumnya ada relasi foreign key, tambahkan lagi
-            $table->foreign('id_wali')->references('id')->on('wali_siswa')->onDelete('cascade');
-        });
-
-        Schema::table('users', function (Blueprint $table) {
+        //
+        Schema::table('siswa', function (Blueprint $table) {
             $table->unsignedBigInteger('id_wali')->nullable();
 
             $table->foreign('id_wali')->references('id')->on('wali_siswa')->onDelete('cascade');
