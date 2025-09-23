@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
             $table->UnsignedInteger('nisn')->unique();
-            $table->string('nama');
-            $table->string('jns_kelamin');
-            $table->string('kelas')->nullable();
+            $table->string('nama', 50);
+            $table->string('jns_kelamin', 15);
+            $table->string('kelas', 20)->nullable();
             $table->enum('jurusan', ['Teknik Kendaraan Ringan', 'Teknik Mesin Industri', 'Administrasi Perkantoran']);
             $table->timestamps();
 
