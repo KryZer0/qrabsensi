@@ -19,10 +19,8 @@ return new class extends Migration
             $table->string('jns_kelamin');
             $table->string('kelas')->nullable();
             $table->enum('jurusan', ['Teknik Kendaraan Ringan', 'Teknik Mesin Industri', 'Administrasi Perkantoran']);
-            $table->UnsignedBigInteger('id_wali')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_wali')->references('id')->on('wali_siswa')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

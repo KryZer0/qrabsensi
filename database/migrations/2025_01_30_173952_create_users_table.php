@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password', 100);
             $table->string('fcm_token')->nullable();
             $table->unsignedBigInteger('id_wali')->nullable();
-            $table->unsignedBigInteger('id_role');
+            $table->unsignedInteger('id_role');
             $table->rememberToken();
             $table->timestamps();
 
