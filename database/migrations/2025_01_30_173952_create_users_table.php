@@ -17,12 +17,10 @@ return new class extends Migration
             $table->string('email', 50)->unique();
             $table->string('password', 100);
             $table->string('fcm_token')->nullable();
-            $table->unsignedBigInteger('id_wali')->nullable();
             $table->unsignedInteger('id_role');
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('id_wali')->references('id')->on('wali_siswa')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_role')->references('id_role')->on('tb_role')->onDelete('cascade')->onUpdate('cascade');
         });
 
