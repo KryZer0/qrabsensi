@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('absensi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('nisn');
+            $table->UnsignedInteger('nisn');
             $table->enum('keterangan',['Masuk','Alpha','Telat','Sakit','Izin']);
             $table->date('tanggal');
             $table->time('jam_masuk')->nullable();
