@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //
         Schema::create('tb_role', function (Blueprint $table) {
-            $table->bigIncrements('id_role');
+            $table->increments('id_role'); // integer auto increment
             $table->string('nama_role', 50)->unique();
         });
     }
