@@ -67,7 +67,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'password' => Hash::make('admin'),
-            'id_wali' => null,
             'id_role' => 1,
         ]);
 
@@ -75,7 +74,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Yoga Chandra',
             'email' => 'YogaChandra@gmail.com',
             'password' => Hash::make('guru'),
-            'id_wali' => null,
             'id_role' => 2,
         ]);
 
@@ -83,7 +81,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Dewi Safitri',
             'email' => 'DewiSafitri@gmail.com',
             'password' => Hash::make('guru'),
-            'id_wali' => null,
             'id_role' => 2,
         ]);
 
@@ -91,7 +88,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Ahmad',
             'email' => 'sirahmad158@gmail.com',
             'password' => Hash::make('ahmad'),
-            'id_wali' => null,
             'id_role' => 2,
         ]);
 

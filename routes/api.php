@@ -42,6 +42,8 @@ Route::prefix('v1')->group(function () {
         Route::get('/generatecard/{nisn}', [QrCodeController::class, 'fetchQrCode']);
         Route::get('/generatecardbatch', [QrCodeController::class, 'fetchAllQrCodes']);
 
+        Route::get('/export-absensi', [HistoryController::class, 'exportAbsensiSiswaExcel']);
+
         Route::get('/fetch-kelas-jurusan', [PresentController::class, 'getSiswaByKelasJurusan']);
         Route::post('/save-izin', [PresentController::class, 'saveIzinSiswa']);
     });
