@@ -189,16 +189,16 @@ class HistoryController extends Controller
             }
 
             switch (strtolower($absen->keterangan)) {
-                case 'hadir':
+                case 'Masuk':
                     $rekap[$nisn]['Hadir']++;
                     break;
-                case 'telat':
+                case 'Telat':
                     $rekap[$nisn]['Hadir']++;
                     break;
-                case 'sakit':
+                case 'Sakit':
                     $rekap[$nisn]['Sakit']++;
                     break;
-                case 'izin':
+                case 'Izin':
                     $rekap[$nisn]['Izin']++;
                     break;
                 default:
